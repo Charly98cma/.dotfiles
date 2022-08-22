@@ -1,0 +1,71 @@
+configuration {
+  /* Modes to show */
+  modi: "drun,ssh,window,run";
+
+  /* Location of menu */
+  location: 2; /* Top of the screen */
+  yoffset: 21; /* 20px polybar + 1p border*/
+  /*xoffset: 0;*/
+  
+  /* Aesthetics of menu */
+  font: "Inconsolata 10";
+  fixed-num-lines: true;
+  /*show-icons: false;*/
+
+  /* Terminal used to run commands and ssh*/
+  terminal: "terminator";
+
+  /* SSH configuration */
+  ssh-client: "ssh";
+  ssh-command: "{terminal} -e '{ssh-client} {host} [-p {port}]'";
+  parse-known-hosts: true;
+  parse-hosts: false;
+
+  /* run configuration */
+  run-command: "{cmd}";
+  run-list-command: "";
+  run-shell-command: "{terminal} -e '{cmd}'";
+
+  /* window config (managed by i3) */
+  /*window-command: "wmctrl -i -R {window}";*/
+  /*window-match-fields: "all";*/
+  window-format: "{w}\t{c}\t\t{t}";
+  /*window-thumbnail: false;*/
+
+  /* drun config (only name of apps) */
+  /*icon-theme: ;*/
+  /*drun-match-fields: "name,generic,exec,categories,keywords";*/
+  /*drun-categories: ;*/
+  /*drun-show-actions: false;*/
+  drun-display-format: "{name}";
+  /*drun-url-launcher: "xdg-open";*/
+  /*drun-use-desktop-cache: false;*/
+  /*drun-reload-desktop-cache: false;*/
+
+  /* Search config */
+  disable-history: true;
+  /*ignored-prefixes: "";*/
+  /*sort: false;*/
+  /*sorting-method: "normal";*/
+  /*case-sensitive: false;*/
+  /*max-history-size: 25;*/
+  cycle: false;
+
+  scroll-method: 0;
+
+/*
+ * No keybindings (kb commands)
+ */
+}
+
+timeout {
+  delay:  15;
+  action: "kb-cancel";
+}
+
+filebrowser {
+  directories-first: true;
+  sorting-method:    "name";
+}
+
+@theme "rofi-theme.rasi"
