@@ -10,7 +10,7 @@
     enable = true;
     mediaKeys = {
       enable = true;
-      volumeStep = "5%";
+      volumeStep = "10%";
     };
   };
 }

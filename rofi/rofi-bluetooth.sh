@@ -180,7 +180,7 @@ toggle_trust() {
 print_status() {
     if power_on; then
 
-        mapfile -t paired_devices < <(bluetoothctl paired-devices | grep Device | cut -d ' ' -f 2)
+        mapfile -t paired_devices < <(bluetoothctl info | grep Device | cut -d ' ' -f 2)
         counter=0
 
         for device in "${paired_devices[@]}"; do
