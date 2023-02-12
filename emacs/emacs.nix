@@ -17,15 +17,25 @@ let
 in
   emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [ 
 
+    doom-modeline  # ; FIXME ¿Config?
+    doom-themes
+
+    helm
+
     magit          # ; Integrate git <C-x g>
     zerodark-theme # ; Nicolas' theme
 
   ]) ++ (with epkgs.melpaPackages; [ 
 
-    undo-tree      # ; <C-x u> to show the undo tree
-    zoom-frm       # ; increase/decrease font size for all buffers %lt;C-x C-+>
+    multiple-cursors
+    # autopair # flex-autopair OR phi-autopair ???
+    rainbow-delimiters
+
+    all-the-icons
 
   ]) ++ (with epkgs.elpaPackages; [ 
+
+    undo-tree      # ; <C-x u> to show the undo tree
 
     auctex         # ; LaTeX mode
     beacon         # ; highlight my cursor when scrolling

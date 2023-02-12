@@ -27,7 +27,11 @@
     #jre
 
     # Dev. tools
-    emacs # My do-everything-with
+    emacs # Trying Doom-Emacs
+    ripgrep
+    coreutils
+    fd
+    clang
     terminator # Terminal
     git
 

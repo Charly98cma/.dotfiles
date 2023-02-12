@@ -36,6 +36,9 @@
     };
   };
 
+  # Default terminal
+  environment.variables.EDITOR = "terminator";
+
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
