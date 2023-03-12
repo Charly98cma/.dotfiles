@@ -9,9 +9,8 @@ nix() {
 
 dunst() {
   echo "dunst setup..."
-  #mkdir -p ~/.config/dunst
-  #ln -is ~/.dotfiles/dunst/dunstrc.conf ~/.config/dunst/dunstrc
-  return 0
+  mkdir -p ~/.config/dunst
+  ln -is ~/.dotfiles/dunst/dunstrc.conf ~/.config/dunst/dunstrc
 }
 
 zsh() {
