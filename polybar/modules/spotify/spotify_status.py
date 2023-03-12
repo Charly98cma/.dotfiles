@@ -69,7 +69,7 @@ def truncate(name, trunclen):
 
 
 # Default parameters
-output = fix_string(u'{play_pause} {artist}: {song}')
+output = fix_string(u'{artist}: {song}')
 trunclen = 35
 play_pause = fix_string(u'\uf04b,\uf04c') # first character is play, second is paused
 
@@ -121,6 +121,13 @@ try:
     artist = fix_string(metadata['xesam:artist'][0]) if metadata['xesam:artist'] else ''
     song = fix_string(metadata['xesam:title']) if metadata['xesam:title'] else ''
     album = fix_string(metadata['xesam:album']) if metadata['xesam:album'] else ''
+
+    # Truncate information of too long
+    if len(song) > 15:
+        song = song[0:15] + '...'
+    if len(album) > 15:
+        album = album[0:15] + '...'
+
 
     if (quiet and status == 'Paused') or (not artist and not song and not album):
         print('')

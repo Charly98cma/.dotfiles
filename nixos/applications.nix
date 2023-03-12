@@ -1,12 +1,11 @@
 { config, pkgs, ... }:
 
 {
-
+  # Enable Bluetooth device
   hardware.bluetooth.enable = true;
 
   # List packages installed in system profile. To search, run: $ nix search wget
   environment.systemPackages = with pkgs; [
-
     # Essential tools
     arandr
     killall
@@ -18,32 +17,40 @@
     escrotum
     tree
     feh
-    gparted
+    parted
     
     # Development (DO NOT TOUCH UNTIL READING NIX PKGS ON DEVEL)
     gcc
     gdb
-    #jdk
-    #jre
 
     # Dev. tools
-    emacs # My do-everything-with
-    terminator # Terminal
-    git
+    emacs
+    ripgrep	# Much faster and useful 'grep'
+    coreutils
+    fd		# Faster and more useful 'find'
+    clang
+    terminator	# Terminal
+    git		# Version control tool
 
     # QoL Tools
-    zathura
-    firefox
-    tdesktop
-    slack
-    spotify
-    #inkscape
-    aspell
-    ranger # File manager <- Delete if endup using rofi as FM
+    brave	# Brave internet browser
+    zathura 	# PDF reader
+    tdesktop 	# Telegram desktop
+    slack 	# Slack client
+    spotify	# Spotify client
+    aspell	# Spell checker
+    ranger	# File manager
 
     # Dependencies from script/modules
-    playerctl
-    zscroll
+    playerctl	# Command-line music controls
+    zscroll	# Text scroller for panels and shells
   ];
 
+
+  # Install fonts (with icons)
+  fonts.fonts = with pkgs; [
+   material-design-icons
+   material-icons
+   font-awesome
+  ];
 }

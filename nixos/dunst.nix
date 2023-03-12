@@ -1,14 +1,15 @@
 { config, pkgs, ... }:
 
 {
-  # List packages installed in system profile. To search, run: $ nix search wget
+  # Include 'dunst' in packages to install
   environment.systemPackages = with pkgs; [
     dunst
   ];
   
+  # Dunst configuration
   systemd.user.services."dunst" = {
     enable = true;
-    description = "";
+    description = "Dunst (notification manager)";
     wantedBy = [ "default.target" ];
     serviceConfig.Restart = "always";
     serviceConfig.RestartSec = 2;

@@ -6,14 +6,10 @@
     enable = true;
 
     shellAliases = {
-      "upd-rb" = "sudo nix-rebuild switch --rollback";
-      "upd-cln" = "sudo nix-collect-garbage && sudo nix-store --optimise";
-      "upd" = "sudo nixos-rebuild boot --upgrade";
-      "upd-sw" = "sudo nixos-rebuild switch --upgrade";
-      "g+++" = "g++ -Wall -Werror -pedantic -o";
-      "gccc" = "gcc -Wall -Werror -pedantic -g -o";
+      "clean" = "sudo nix-collect-garbage && sudo nix-store --optimise";
+      "g+++" = "g++ -Wall -Werror -Wextra -pedantic -o";
+      "gccc" = "gcc -Wall -Werror -Wextra -pedantic -g -o";
       ".." = "cd ..";
-      #apod="make -C /home/carlos/.dotfiles/.i3/wallpaper/APOD-Wallpaper/ run";
     };
 
     autosuggestions.enable = true;

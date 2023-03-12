@@ -8,7 +8,7 @@ configuration {
   /*xoffset: 0;*/
   
   /* Aesthetics of menu */
-  font: "Inconsolata 10";
+  font: "Monospace Bold 9";
   fixed-num-lines: true;
   /*show-icons: false;*/
 

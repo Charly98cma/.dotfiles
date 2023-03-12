@@ -1,19 +1,19 @@
 { config, pkgs, ... }:
 
 {
+  services.xserver.libinput = {
+    enable = true;
+    touchpad = {
+      naturalScrolling = true;
+      clickMethod = "buttonareas";
+      disableWhileTyping = true;
+      middleEmulation = false;
+      tapping = true;
 
-  # Enable touchpad control FIXME: DOES NOT WORK
-  services.xserver.libinput.enable = true;
-  services.xserver.libinput.touchpad = {
-    clickMethod = "buttonareas";
-    disableWhileTyping = true;
-    middleEmulation = true;
-    tapping = true;
-
-    additionalOptions = ''
-      Option "PalmDetection" "on"
-      Option "TappingButtonMap" "lmr"
-    '';
+      additionalOptions = ''
+        Option "PalmDetection" "on"
+        Option "TappingButtonMap" "lmr"
+      '';
+    };
   };
-
 }
