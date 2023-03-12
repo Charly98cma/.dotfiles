@@ -1,12 +1,9 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
+  # Import configuration from other Nix files
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
       ./users.nix
       ./network-config.nix
@@ -21,9 +18,14 @@
       ./dunst.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
+
+  # Boot and EFI configuration
   boot = {
+    # Hibernate (to swap partition)
+    resumeDevice = "/dev/nvme0n1p5";
+    # Keep '/tmp' clean
     cleanTmpDir = true;
+    # GRUB and EFI settings
     loader = {
       grub = {
         enable = true;
@@ -36,8 +38,13 @@
     };
   };
 
-  # Default terminal
-  environment.variables.EDITOR = "terminator";
+
+  # Cleaning and optimising Nix system
+  nix = {
+    gc.automatic = true;
+    settings.auto-optimise-store = true;
+  };
+
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
@@ -48,35 +55,21 @@
     isNormalUser = true;
     home = "/home/carlos";
     description = "Carlos Miguel";
-    extraGroups = [ "wheel" "networkmanager" ]; # wheel == Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" ];
   };
 
 
-  # Pick only one of the below networking options.
-  networking = {
-    hostName = "Nix-OsMachina"; # Define your hostname.
-    networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-    useDHCP = false;
-    interfaces.wlo1.useDHCP = true;    
-  };  
+  # Default terminal
+  environment.variables.EDITOR = "terminator";
 
-  # Install fonts
-  fonts.fonts = with pkgs; [
-    material-design-icons
-    material-icons
-    font-awesome
-  ];
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
-
+  # Configuration of additioinal Nixpkgs
   nixpkgs.config = {
     allowUnfree = true;
     #allowBroken = true;
     #allowUnsupportedSystem = true;
   };
+
 
   # Systemd config (related to power management)
   services.logind.extraConfig = ''
@@ -85,19 +78,19 @@
     # Ignore lid switch to close laptop without suspend
     HandleLidSwitch=ignore
   '';
+
   
   # Configure keymap in X11
   services.xserver.layout = "es";
   services.xserver.xkbOptions = "eurosign:e";
 
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Cleaning and optimising
-  nix = {
-    gc.automatic = true;
-    settings.auto-optimise-store = true;
-  };
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  # for a WiFi printer
+  services.avahi.openFirewall = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

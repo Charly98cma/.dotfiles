@@ -8,6 +8,10 @@
 
     desktopManager = {
       xterm.enable = false;
+      wallpaper = {
+        combineScreens = false;
+        mode = "scale";
+      };
     };
 
     displayManager = {
@@ -16,6 +20,7 @@
 
     windowManager.i3 = {
       enable = true;
+      # Additional packages used to build i3
       extraPackages = with pkgs; [
         i3
         i3lock
