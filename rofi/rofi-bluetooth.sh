@@ -198,7 +198,16 @@ print_status() {
 	    else
 	        printf '%s' "%{F#FBA922}󰂯%{F-} On "
             fi
+	    # Return if connected/paired to at least one device
+	    return 1
         done
+
+	# Display scan status if powered on but not connected
+	if bluetoothctl show | grep -q "Discovering: yes"; then
+	    printf '%s' "%{F#FBA922}󰂯 Scanning...%{F-}"
+	else
+            printf '%s' "%{F#FBA922}󰂱 Scan off%{F-}"
+	fi
     else
         printf '%s' "%{F#FF5555}󰂲 Off%{F-}"
     fi
