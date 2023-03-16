@@ -9,7 +9,6 @@
       "clean" = "sudo nix-collect-garbage && sudo nix-store --optimise";
       "g+++" = "g++ -Wall -Werror -Wextra -pedantic -o";
       "gccc" = "gcc -Wall -Werror -Wextra -pedantic -g -o";
-      ".." = "cd ..";
     };
 
     autosuggestions.enable = true;
@@ -25,6 +24,5 @@
   };
 
   environment.pathsToLink = [ "/share/zsh" ];
-
   users.defaultUserShell = pkgs.zsh;
 }

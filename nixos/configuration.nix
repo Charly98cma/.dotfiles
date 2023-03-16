@@ -16,8 +16,9 @@
       ./polybar.nix
       ./actkbd.nix
       ./dunst.nix
+      ./emacs.nix
+      ./printing.nix
     ];
-
 
   # Boot and EFI configuration
   boot = {
@@ -25,19 +26,23 @@
     resumeDevice = "/dev/nvme0n1p5";
     # Keep '/tmp' clean
     cleanTmpDir = true;
-    # GRUB and EFI settings
     loader = {
       grub = {
         enable = true;
         device = "nodev";
         efiSupport = true;
         useOSProber = true;
+	# Max. number of profiles
         configurationLimit = 3;
       };
-      efi.canTouchEfiVariables = true;
+      efi = {
+        canTouchEfiVariables = true;
+      };
+      timeout = 10;
     };
+    # Always get latest
+    kernelPackages = pkgs.linuxPackages_latest;
   };
-
 
   # Cleaning and optimising Nix system
   nix = {
@@ -45,31 +50,11 @@
     settings.auto-optimise-store = true;
   };
 
-
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.carlos = {
-    isNormalUser = true;
-    home = "/home/carlos";
-    description = "Carlos Miguel";
-    extraGroups = [ "wheel" "networkmanager" ];
-  };
-
-
   # Default terminal
   environment.variables.EDITOR = "terminator";
-
-
-  # Configuration of additioinal Nixpkgs
-  nixpkgs.config = {
-    allowUnfree = true;
-    #allowBroken = true;
-    #allowUnsupportedSystem = true;
-  };
-
 
   # Systemd config (related to power management)
   services.logind.extraConfig = ''
@@ -79,18 +64,9 @@
     HandleLidSwitch=ignore
   '';
 
-  
   # Configure keymap in X11
   services.xserver.layout = "es";
   services.xserver.xkbOptions = "eurosign:e";
-
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.avahi.enable = true;
-  services.avahi.nssmdns = true;
-  # for a WiFi printer
-  services.avahi.openFirewall = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

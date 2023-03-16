@@ -1,8 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  # Enable Bluetooth device
-  hardware.bluetooth.enable = true;
+  # Configuration of additioinal Nixpkgs
+  nixpkgs.config = {
+    allowUnfree = true;
+    #allowBroken = true;
+    #allowUnsupportedSystem = true;
+  };
 
   # List packages installed in system profile. To search, run: $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -10,9 +14,7 @@
     arandr
     killall
     wget
-    htop
     zip
-    unrar
     unzip
     escrotum
     tree
@@ -24,7 +26,6 @@
     gdb
 
     # Dev. tools
-    emacs
     ripgrep	# Much faster and useful 'grep'
     coreutils
     fd		# Faster and more useful 'find'
@@ -40,12 +41,12 @@
     spotify	# Spotify client
     aspell	# Spell checker
     ranger	# File manager
+    pavucontrol # Very useful audio panel
 
     # Dependencies from script/modules
     playerctl	# Command-line music controls
     zscroll	# Text scroller for panels and shells
   ];
-
 
   # Install fonts (with icons)
   fonts.fonts = with pkgs; [

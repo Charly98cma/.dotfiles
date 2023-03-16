@@ -7,7 +7,7 @@
       naturalScrolling = true;
       clickMethod = "buttonareas";
       disableWhileTyping = true;
-      middleEmulation = false;
+      middleEmulation = true;
       tapping = true;
 
       additionalOptions = ''
