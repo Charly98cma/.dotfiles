@@ -31,6 +31,12 @@
   :init
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode 1))
 
+;; Autopair-mode (closes a brace structure as soon as the opening char os typed)
+(eval-after-load "autopair-autoloads" ; <-- "autopair-autoloads" not "autopair"
+  '(progn
+     (require 'autopair)
+     (autopair-global-mode 1)))
+
 ;; Spaceline
 ;; https://github.com/TheBB/spaceline
 (use-package spaceline-all-the-icons
@@ -50,18 +56,15 @@
 ;; Vertico
 ;; https://github.com/minad/vertico
 (use-package vertico
+  :ensure t
   :init
   (vertico-mode)
-
   ;; Different scroll margin
   (setq vertico-scroll-margin 0)
-
   ;; Show more candidates
   (setq vertico-count 20)
-
   ;; Grow and shrink the Vertico minibuffer
-  (setq vertico-resize t)
-
+  ;(setq vertico-resize t)
   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
   ;; (setq vertico-cycle t)
   )
@@ -97,9 +100,34 @@
               ("C-<" . 'mc/mark-previous-like-this)
               ("C-c C-<" . 'mc/mark-all-like-this)))
 
+(use-package hl-todo
+  :ensure t
+  :hook (prog-mode . hl-todo-mode)
+  :config
+  (setq hl-todo-highlight-punctuation ":"
+        hl-todo-keyword-faces
+        `(("TODO"       warning bold)
+          ("FIXME"      error bold)
+          ("HACK"       font-lock-constant-face bold)
+          ("REVIEW"     font-lock-keyword-face bold)
+          ("NOTE"       success bold)
+          ("DEPRECATED" font-lock-doc-face bold))))
+
 
 
 ;;; Modes and tools
+
+;; Ispell and Flyspell
+(require 'ispell)
+(setq ispell-dictionary "english")
+(add-to-list
+ 'ispell-dictionary-alist '("spanish"))
+(autoload 'flyspell-mode "flyspell" "On-the-fly spelling checker." t)
+(add-hook 'text-mode-hook 'flyspell-mode)
+
+;; Move-text
+(provide 'move-text)
+(move-text-default-bindings)
 
 ;; Undo-tree
 ;; (must be installed with M-x package-install)
@@ -123,22 +151,31 @@
 ;; Treemacs
 ;; https://github.com/Alexander-Miller/treemacs
 (use-package treemacs
+  :ensure t
   :bind (:map global-map
               ("C-x t t" . treemacs)))
 
 ;; Flycheck
 ;; https://github.com/flycheck/flycheck
 (use-package flycheck
+  :ensure t
   :init (global-flycheck-mode))
 
 ;; Yasnippet
 ;; https://github.com/joaotavora/yasnippet
 (use-package yasnippet
-  :init (yas-global-mode 1))
+  :ensure t
+  :init (yas-global-mode t)
+  :bind ("C-<tab>" . yas-expand))
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(use-package yasnippet-snippets
+  :ensure t)
 
 ;; Company
 ;; https://github.com/company-mode/company-mode
 (use-package company
+  :ensure t
   :init (progn
           (global-company-mode)
           (setq company-idle-delay 0)
@@ -209,6 +246,21 @@
 ;; https://github.com/spotify/dockerfile-mode
 (use-package dockerfile-mode
   :mode ("^Dockerfile" . dockerfile-mode))
+
+;; Java stuff
+(eval-when-compile
+  (defvar c-basic-offset))
+(add-hook 'java-mode-hook (lambda ()
+			    (setq c-basic-offset 2
+				  tab-width 2
+				  indent-tabs-mode t)))
+(require 'lsp-java)
+(add-hook 'java-mode-hook #'lsp)
+
+;; Shell-script-mode (specifically for zsh files)
+(add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
+;; Conf-mode
+(add-to-list 'auto-mode-alist '("\\.gitconfig$" . conf-mode))
 
 
 

@@ -7,12 +7,15 @@
 ;;; Code:
 ;;
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t)
-(package-initialize)
 
+;; Package management
+(eval-when-compile
+  (defvar package-archives))
+(setq package-archives '(
+			 ("gnu" . "https://elpa.gnu.org/packages/")
+			 ("melpa" . "https://melpa.org/packages/")))
 (unless (package-installed-p 'use-package)
+  (package-initialize)
   (package-refresh-contents)
   (package-install 'use-package))
 
