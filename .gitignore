@@ -1,1 +1,5 @@
+# Ignore all Emacs undo-tree save files
 *~undo-tree~
+
+# Ignore the Python spotify build
+polybar/modules/spotify/result
