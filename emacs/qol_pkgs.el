@@ -26,6 +26,7 @@
 
 ;; Rainbow delimiters
 ;; https://www.emacswiki.org/emacs/RainbowDelimiters
+(defvar rainbow-delimiters)
 (use-package rainbow-delimiters
   :ensure t
   :init
@@ -39,6 +40,7 @@
 
 ;; Spaceline
 ;; https://github.com/TheBB/spaceline
+(defvar spaceline-all-the-icons)
 (use-package spaceline-all-the-icons
   :init (progn
           (spaceline-all-the-icons-theme)
@@ -48,13 +50,11 @@
           (spaceline-toggle-all-the-icons-time-off)
           (setq spaceline-all-the-icons-separator-type 'none)
           (setq spaceline-all-the-icons-icon-set-modified 'circle)
-          (setq spaceline-all-the-icons-hide-long-buffer-path t)
-          (when (string-equal system-type "darwin")
-            (setq powerline-image-apple-rgb t)))
-  )
+          (setq spaceline-all-the-icons-hide-long-buffer-path t)))
 
 ;; Vertico
 ;; https://github.com/minad/vertico
+(defvar vertico)
 (use-package vertico
   :ensure t
   :init
@@ -62,14 +62,10 @@
   ;; Different scroll margin
   (setq vertico-scroll-margin 0)
   ;; Show more candidates
-  (setq vertico-count 20)
-  ;; Grow and shrink the Vertico minibuffer
-  ;(setq vertico-resize t)
-  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-  ;; (setq vertico-cycle t)
-  )
+  (setq vertico-count 20))
 
 ;; A few more useful configurations...
+(defvar emacs)
 (use-package emacs
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
@@ -93,16 +89,18 @@
 
 ;; Multiple-cursors
 ;; https://github.com/magnars/multiple-cursors.el
+(defvar multiple-cursors)
 (use-package multiple-cursors
+  :ensure t
   :bind (:map global-map
-              ("C-S-c C-S-c" . 'mc/edit-lines)
-              ("C->" . 'mc/mark-next-like-this)
-              ("C-<" . 'mc/mark-previous-like-this)
-              ("C-c C-<" . 'mc/mark-all-like-this)))
+              ("C-c m c" . 'mc/edit-lines)))
+;; C-' -> Hide/Unhide all lines without a cursor
+;; C-g -> exit
 
+(defvar hl-todo)
 (use-package hl-todo
   :ensure t
-  :hook (prog-mode . hl-todo-mode)
+  :hook (prog-mode . 'hl-todo-mode)
   :config
   (setq hl-todo-highlight-punctuation ":"
         hl-todo-keyword-faces
@@ -134,6 +132,7 @@
 ;; https://github.com/apchamberlain/undo-tree.el
 (require 'undo-tree)
 (global-undo-tree-mode 1)
+(setq undo-tree-auto-save-history t)
 (setq undo-tree-show-minibuffer-help t)
 
 ;; All the icons
@@ -176,10 +175,35 @@
 ;; https://github.com/company-mode/company-mode
 (use-package company
   :ensure t
-  :init (progn
-          (global-company-mode)
-          (setq company-idle-delay 0)
-          (setq company-minimum-prefix-length 1)))
+  :init (global-company-mode)
+  :bind ("C-<tab>" . company-yasnippet))
+(add-hook 'after-init-hook 'global-company-mode) ; Enabled on all buffers
+;; Company-quickhelp
+(use-package company-quickhelp
+  :ensure t
+  :init (company-quickhelp-mode 1)
+  :config (eval-after-load 'company
+	    '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
+
+;; DOOM Themes => doom-tomorrow-night
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-tomorrow-night t)
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom treemacs theme (all-the-icons must be installed!)
+  (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+
+
+;;; Programming modes
 
 ;; LSP
 ;; https://github.com/emacs-lsp/lsp-mode
@@ -201,26 +225,6 @@
           (setq lsp-ui-doc-show-with-cursor t)
           (setq lsp-ui-doc-show-with-mouse t))
   :hook (lsp-mode . lsp-ui-mode))
-
-;; DOOM Themes => doom-tomorrow-night
-(use-package doom-themes
-  :ensure t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-tomorrow-night t)
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  ;; Enable custom treemacs theme (all-the-icons must be installed!)
-  (setq doom-themes-treemacs-theme "doom-colors") ; use "doom-colors" for less minimal icon theme
-  (doom-themes-treemacs-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-
-
-
-;;; Programming modes
 
 ;; Nix-mode for Nix files
 ;; https://github.com/NixOS/nix-mode
@@ -264,4 +268,5 @@
 
 
 
+(provide 'qol_pkgs)
 ;;; qol_pkgs.el ends here

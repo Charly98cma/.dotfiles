@@ -29,3 +29,6 @@
   (require 'use-package-ensure))
 
 (setq use-package-always-ensure t)
+
+(provide 'pkg_config)
+;;; pkg_config.el ends here
