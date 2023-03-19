@@ -20,7 +20,7 @@
     tree
     feh
     parted
-    
+
     # Development (DO NOT TOUCH UNTIL READING NIX PKGS ON DEVEL)
     gcc
     gdb
@@ -42,6 +42,7 @@
     aspell	# Spell checker
     ranger	# File manager
     pavucontrol # Very useful audio panel
+    zoom-us     # Zoom conferencing application
 
     # Dependencies from script/modules
     playerctl	# Command-line music controls
