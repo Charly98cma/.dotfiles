@@ -72,7 +72,7 @@
 ;; Font
 (add-to-list 'default-frame-alist '(font . "Monospace 11"))
 (set-face-attribute 'default nil :family "Monospace 11")
-(set-frame-font "Monospace 11")
+(set-frame-font "Monospace 11" nil t)
 
 ;; Replace "yes/no" with "y/n"
 (fset 'yes-or-no-p 'y-or-n-p)

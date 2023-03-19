@@ -94,6 +94,7 @@
   :ensure t
   :bind (:map global-map
               ("C-c m c" . 'mc/edit-lines)))
+;; C-j -> New line while editing multiple lines
 ;; C-' -> Hide/Unhide all lines without a cursor
 ;; C-g -> exit
 
@@ -101,6 +102,10 @@
 (use-package hl-todo
   :ensure t
   :hook (prog-mode . 'hl-todo-mode)
+  :bind (("C-c p" . hl-todo-previous)
+	 ("C-c n" . hl-todo-next)
+	 ("C-c o" . hl-todo-occur)
+	 ("C-c i" . hl-todo-insert))
   :config
   (setq hl-todo-highlight-punctuation ":"
         hl-todo-keyword-faces
@@ -127,17 +132,12 @@
 (provide 'move-text)
 (move-text-default-bindings)
 
-;; Undo-tree
-;; (must be installed with M-x package-install)
+;; Undo-tree (must be installed with M-x package-install)
 ;; https://github.com/apchamberlain/undo-tree.el
 (require 'undo-tree)
 (global-undo-tree-mode 1)
 (setq undo-tree-auto-save-history t)
 (setq undo-tree-show-minibuffer-help t)
-
-;; All the icons
-(when (display-graphic-p)
-  (require 'all-the-icons))
 
 ;; Windmove (move between buffers with arrows)
 ;; https://www.emacswiki.org/emacs/WindMove
@@ -147,6 +147,7 @@
          ("C-<down>" . windmove-down)
          ("C-<right>" . windmove-right)
          ("C-<left>" . windmove-left)))
+
 ;; Treemacs
 ;; https://github.com/Alexander-Miller/treemacs
 (use-package treemacs
@@ -183,7 +184,7 @@
   :ensure t
   :init (company-quickhelp-mode 1)
   :config (eval-after-load 'company
-	    '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
+            '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin)))
 
 ;; DOOM Themes => doom-tomorrow-night
 (use-package doom-themes
@@ -238,13 +239,13 @@
   :mode (("\\.markdown$" . markdown-mode)
          ("\\.md$" . markdown-mode))
   :hook ((markdown-mode . flyspell-mode)
-          (markdown-mode . auto-fill-mode)))
+         (markdown-mode . auto-fill-mode)))
 
 ;; YAML mode
 ;; https://github.com/yoshiki/yaml-mode
 (use-package yaml-mode
   :mode (("\\.yaml$" . yaml-mode)
-        ("\\.yml$" . yaml-mode)))
+         ("\\.yml$" . yaml-mode)))
 
 ;; Dockerfile-mode
 ;; https://github.com/spotify/dockerfile-mode
@@ -255,9 +256,9 @@
 (eval-when-compile
   (defvar c-basic-offset))
 (add-hook 'java-mode-hook (lambda ()
-			    (setq c-basic-offset 2
-				  tab-width 2
-				  indent-tabs-mode t)))
+                            (setq c-basic-offset 2
+                                  tab-width 2
+                                  indent-tabs-mode t)))
 (require 'lsp-java)
 (add-hook 'java-mode-hook #'lsp)
 
