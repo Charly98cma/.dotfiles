@@ -4,20 +4,21 @@
   # Import configuration from other Nix files
   imports =
     [
-      ./hardware-configuration.nix
-      ./users.nix
-      ./network-config.nix
-      ./applications.nix
-      ./light.nix
-      ./touchpad.nix
-      ./i3.nix
-      ./audio.nix
-      ./zsh.nix
-      ./polybar.nix
       ./actkbd.nix
+      ./applications.nix
+      ./audio.nix
       ./dunst.nix
       ./emacs.nix
+      ./hardware-configuration.nix
+      ./i3.nix
+      ./light.nix
+      ./network-config.nix
+      ./polybar.nix
       ./printing.nix
+      ./ssh.nix
+      ./touchpad.nix
+      ./users.nix
+      ./zsh.nix
     ];
 
   # Boot and EFI configuration
