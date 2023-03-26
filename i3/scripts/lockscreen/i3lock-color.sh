@@ -8,11 +8,16 @@ GREY=5B5B5B
 GREEN=8FCE00
 RED=F44336
 
-font="inconsolata"
+font="Monospace"
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+# Pause notifications when locked
+dunstctl set-paused true
+
+# Lock screen
 i3lock-color \
+  --nofork \
   --ignore-empty-password \
   --force-clock \
   --indicator \
@@ -38,3 +43,7 @@ i3lock-color \
   --bshl-color=${RED} \
   --verifoutline-color=${ORANGE}
 #  --no-verify
+
+
+# Unpause notifications when unlocked
+dunstctl set-paused false
