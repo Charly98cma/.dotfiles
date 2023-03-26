@@ -1,11 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # Include 'dunst' in packages to install
-  environment.systemPackages = with pkgs; [
-    dunst
-  ];
-  
   # Dunst configuration
   systemd.user.services."dunst" = {
     enable = true;
@@ -15,5 +10,4 @@
     serviceConfig.RestartSec = 2;
     serviceConfig.ExecStart = "${pkgs.dunst}/bin/dunst";
   };
-
 }

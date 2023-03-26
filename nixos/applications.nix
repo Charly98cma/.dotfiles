@@ -11,42 +11,41 @@
   # List packages installed in system profile. To search, run: $ nix search wget
   environment.systemPackages = with pkgs; [
     # Essential tools
-    arandr
-    killall
+    arandr                # Screen manager
+    killall               # Tool to kill all process by name
     wget
-    zip
-    unzip
-    escrotum
-    tree
+    escrotum              # Screenshot tool
     feh
     parted
+    dunst                 # Notification handler
 
-    # Development (DO NOT TOUCH UNTIL READING NIX PKGS ON DEVEL)
+    # Dev.
     gcc
     gdb
 
     # Dev. tools
-    ripgrep	# Much faster and useful 'grep'
+    ripgrep	              # Much faster and useful 'grep'
     coreutils
-    fd		# Faster and more useful 'find'
+    fd		                # Faster and more useful 'find'
     clang
-    terminator	# Terminal
-    git		# Version control tool
+    terminator           	# Terminal
+    git                   # Version control tool
 
     # QoL Tools
-    brave	# Brave internet browser
-    zathura 	# PDF reader
-    tdesktop 	# Telegram desktop
-    slack 	# Slack client
-    spotify	# Spotify client
-    aspell	# Spell checker
-    ranger	# File manager
-    pavucontrol # Very useful audio panel
-    zoom-us     # Zoom conferencing application
+    brave	                # Brave internet browser
+    zathura 	            # PDF reader
+    tdesktop 	            # Telegram desktop
+    slack 	              # Slack client
+    spotify	              # Spotify client
+    aspell	              # Spell checker
+    pavucontrol           # Very useful audio panel
+    zoom-us               # Zoom conferencing application
+    ranger	              # File manager
+    # proppler_utils        # Pdf-to-images tool
 
     # Dependencies from script/modules
-    playerctl	# Command-line music controls
-    zscroll	# Text scroller for panels and shells
+    playerctl	            # Command-line music controls
+    zscroll	              # Text scroller for panels and shells
   ];
 
   # Install fonts (with icons)
