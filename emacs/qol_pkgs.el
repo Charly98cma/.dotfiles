@@ -20,6 +20,17 @@
   (message "Indent buffer: Done."))
 (global-set-key (kbd "M-i") 'iwb)
 
+;; Aggressive-indent-mode
+;; https://github.com/Malabarba/aggressive-indent-mode
+(use-package aggressive-indent
+  :ensure t
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+  (add-hook 'css-mode-hook #'aggressive-indent-mode)
+  (global-aggressive-indent-mode 1)
+  )
+
+
 ;; All the icons
 (when (display-graphic-p)
   (require 'all-the-icons))
@@ -92,20 +103,18 @@
 (defvar multiple-cursors)
 (use-package multiple-cursors
   :ensure t
-  :bind (:map global-map
-              ("C-c m c" . 'mc/edit-lines)))
+  :bind (("C-c m c" . 'mc/edit-lines)))
 ;; C-j -> New line while editing multiple lines
 ;; C-' -> Hide/Unhide all lines without a cursor
-;; C-g -> exit
+;; C-g or ENTER -> exit
 
 (defvar hl-todo)
 (use-package hl-todo
   :ensure t
-  :hook (prog-mode . 'hl-todo-mode)
   :bind (("C-c p" . hl-todo-previous)
-	 ("C-c n" . hl-todo-next)
-	 ("C-c o" . hl-todo-occur)
-	 ("C-c i" . hl-todo-insert))
+         ("C-c n" . hl-todo-next)
+         ("C-c o" . hl-todo-occur)
+         ("C-c i" . hl-todo-insert))
   :config
   (setq hl-todo-highlight-punctuation ":"
         hl-todo-keyword-faces
@@ -205,6 +214,12 @@
 
 
 ;;; Programming modes
+
+;; Magit
+;; https://github.com/magit/magit
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit-status))
 
 ;; LSP
 ;; https://github.com/emacs-lsp/lsp-mode

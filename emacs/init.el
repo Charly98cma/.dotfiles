@@ -63,8 +63,8 @@
 
 ;; Only 80 characters per line
 (setq-default fill-column 80)
-(add-hook 'text-mode-hook 'auto-fill-mode)
-(add-hook 'prog-mode-hook #'auto-fill-mode)
+;(add-hook 'text-mode-hook 'auto-fill-mode)
+(add-hook 'prog-mode-hook 'auto-fill-mode)
 
 ;; Remove trailing withespaces on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
