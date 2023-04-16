@@ -17,7 +17,6 @@ dunstctl set-paused true
 
 # Lock screen
 i3lock-color \
-  --nofork \
   --ignore-empty-password \
   --force-clock \
   --indicator \
