@@ -1,39 +1,30 @@
 #!/usr/bin/env bash
 
-nix() {
-  echo "nix setup..."
-  sudo ln -is ~/.dotfiles/nixos/configuration.nix /etc/nixos/configuration.nix
-  sudo ln -is /etc/nixos/hardware-configuration.nix ~/.dotfiles/nixos/hardware-configuration.nix
-}
+# NixOS configuration
+echo "> Setting up nix..."
+sudo ln -is ~/.dotfiles/nixos/configuration.nix /etc/nixos/configuration.nix
+sudo ln -is /etc/nixos/hardware-configuration.nix ~/.dotfiles/nixos/hardware-configuration.nix
+echo "> nix done"
 
-dunst() {
-  echo "dunst setup..."
-  mkdir -p ~/.config/dunst
-  ln -is ~/.dotfiles/dunst/dunstrc.conf ~/.config/dunst/dunstrc
-}
+# Dunst config
+echo "> Setting up dunst..."
+mkdir -p ~/.config/dunst
+ln -is ~/.dotfiles/dunst/dunstrc.conf ~/.config/dunst/dunstrc
+echo "> dunst done"
 
-zsh() {
-  echo "zsh setup..."
-  ln -is ~/.dotfiles/zsh/zshrc ~/.zshrc
-}
+# ZSH config
+echo "> Setting up zsh..."
+ln -is ~/.dotfiles/zsh/zshrc ~/.zshrc
+echo "> zsh done"
 
-polybar() {
-  echo "polybar setup..."
-  cd polybar/modules/spotify/
-  nix-build default.nix
-  cd ~/.dotfiles
-}
+# Polybar config
+echo "> Setting up polybar..."
+cd polybar/modules/spotify/
+nix-build default.nix
+cd ~/.dotfiles
+echo "> polybar done"
 
-wallpaper() {
-  echo "wallpaper setup..."
-  ln -is ~/.dotfiles/wallpaper.png ~/.background-image
-}
-
-case "$1" in
-  "all") nix;dunst;zsh;polybar;wallpaper;;
-  "nix") nix;;
-  "dunst") dunst;;
-  "zsh") zsh;;
-  "polybar") polybar;;
-  "wallpaper") wallpaper;;
-esac
+# Wallpaper
+echo "> Setting up wallpaper"
+ln -is ~/.dotfiles/wallpaper.png ~/.background-image
+echo "> wallpaper done"
