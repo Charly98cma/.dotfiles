@@ -59,25 +59,15 @@ handle_extension() {
             ## Avoid password prompt by providing empty password
             unrar lt -p- -- "${FILE_PATH}" && exit 5
             exit 1;;
-        7z)
-            ## Avoid password prompt by providing empty password
-            7z l -p -- "${FILE_PATH}" && exit 5
-            exit 1;;
-
-        ## PDF
-        pdf)
-            ## Preview as text conversion
-            pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - | \
-              fmt -w "${PV_WIDTH}" && exit 5
-            mutool draw -F txt -i -- "${FILE_PATH}" 1-10 | \
-              fmt -w "${PV_WIDTH}" && exit 5
-            exiftool "${FILE_PATH}" && exit 5
-            exit 1;;
+        # 7z)
+        #     ## Avoid password prompt by providing empty password
+        #     7z l -p -- "${FILE_PATH}" && exit 5
+        #     exit 1;;
 
         ## BitTorrent
-        torrent)
-            transmission-show -- "${FILE_PATH}" && exit 5
-            exit 1;;
+        # torrent)
+        #     transmission-show -- "${FILE_PATH}" && exit 5
+        #     exit 1;;
 
         ## OpenDocument
         odt|ods|odp|sxw)
@@ -128,15 +118,9 @@ handle_image() {
     local mimetype="${1}"
     case "${mimetype}" in
         ## SVG
-        # image/svg+xml|image/svg)
-        #     convert -- "${FILE_PATH}" "${IMAGE_CACHE_PATH}" && exit 6
-        #     exit 1;;
-
-        ## DjVu
-        # image/vnd.djvu)
-        #     ddjvu -format=tiff -quality=90 -page=1 -size="${DEFAULT_SIZE}" \
-        #           - "${IMAGE_CACHE_PATH}" < "${FILE_PATH}" \
-        #           && exit 6 || exit 1;;
+        image/svg+xml|image/svg)
+            convert -- "${FILE_PATH}" "${IMAGE_CACHE_PATH}" && exit 6
+            exit 1;;
 
         ## Image
         image/*)

@@ -30,7 +30,7 @@ class Solarized(ColorScheme):
                 fg = ORANGE
                 attr |= (BRIGHT & bold) if context.selected else dim
 
-            if context.directory or context.device:
+            if context.file or context.directory or context.device:
                 fg=WHITE
                 attr |= (BRIGHT & bold) if context.selected else dim
             elif context.executable and not any((context.media, context.container, context.fifo, context.socket)):
