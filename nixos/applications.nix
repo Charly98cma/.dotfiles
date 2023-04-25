@@ -41,7 +41,7 @@
     pavucontrol           # Very useful audio panel
     zoom-us               # Zoom conferencing application
     ranger	              # File manager
-    # proppler_utils        # Pdf-to-images tool
+    poppler_utils         # Pdf-to-images tool
 
     # Dependencies from script/modules
     playerctl	            # Command-line music controls
