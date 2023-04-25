@@ -124,7 +124,7 @@
           ("REVIEW"     font-lock-keyword-face bold)
           ("NOTE"       success bold)
           ("DEPRECATED" font-lock-doc-face bold))))
-
+(global-hl-todo-mode 1)
 
 
 ;;; Modes and tools
